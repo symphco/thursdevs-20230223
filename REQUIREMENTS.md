@@ -1,0 +1,26 @@
+- [ ] As a visitor, I should be able to search for available pianos.
+  - [ ] The client requests for data of all the pianos available in the system given a search query.
+  - [ ] The server retrieves data of all the pianos from the data source matching the search query against the model or brand, and returns to the client.
+  - [ ] The client displays the data retrieved from the server according to the design.
+- [ ] As a visitor, I should be able to view all the pianos available.
+  - [ ] The client requests for data of all the pianos available in the system.
+  - [X] The server retrieves data of all the pianos from the data source and returns to the client.
+  - [ ] The client displays the data retrieved from the server according to the design.
+- [ ] As a visitor, I should be able to view a single piano.
+  - [ ] The client requests for data of a single piano through an ID available in the system.
+  - [X] The server retrieves the data of the single piano from the data source and returns to the client.
+  - [ ] The client displays the data retrieved from the server according to the design.
+  - [X] Should the piano with the given ID be unavailable, the server returns an error message.
+  - [ ] The client displays any error message sent by the server.
+- [ ] As a visitor, I should be able to upload data of a single piano.
+  - [ ] The client sends the data of the piano to upload to the system.
+  - [ ] The server accepts the data from the client, stores it to the data source, and returns the version of the data that was stored.
+  - [ ] The client displays a success message if the data has been stored.
+  - [ ] Should an error with the request happens, the server returns an error message.
+  - [ ] The client displays any error message sent by the server.
+- [ ] As a visitor, I should be able to delete a single piano.
+  - [ ] The client requests deletion for data of a single piano through an ID available in the system.
+  - [ ] The server deletes the data of the single piano from the data source and returns confirmation to the client.
+  - [ ] The client displays a success message if the data has been deleted.
+  - [ ] Should the piano with the given ID be unavailable or previously deleted, the server returns an error message.
+  - [ ] The client displays any error message sent by the server.
