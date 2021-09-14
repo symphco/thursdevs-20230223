@@ -18,7 +18,7 @@
   "keywords": [
     "pridepack"
   ],
-  "name": "piano-city-service",
+  "name": "@piano-city/service",
   "dependencies": {
     "cross-env": "^7.0.3",
     "fastify": "^3.21.0",
