@@ -77,7 +77,7 @@ describe('Piano API', () => {
     });
   });
 
-  describe('PUT /pianos/:pianoId', () => {
+  fdescribe('PUT /pianos/:pianoId', () => {
     it('should return 201 for a created resource', async () => {
       const response = await SERVER
         .inject()

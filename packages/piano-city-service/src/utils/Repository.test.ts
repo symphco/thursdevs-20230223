@@ -19,7 +19,7 @@ type Entity = { id: string };
 
 const ID_RETRIEVER = (item: Entity) => item.id;
 
-describe('Repository', () => {
+xdescribe('Repository', () => {
   let repository: RepositoryImpl<Entity>;
 
   beforeEach(() => {

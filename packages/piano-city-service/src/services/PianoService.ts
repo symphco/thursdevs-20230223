@@ -4,6 +4,7 @@ import Piano from '../models/Piano';
 export default interface PianoService {
   getAllPianos(): Promise<Piano[]>;
   getSinglePiano(id: string): Promise<Piano | undefined>;
+  savePiano(pianoToSave: Partial<Piano>): Promise<Piano>;
 }
 
 export class PianoServiceImpl implements PianoService {
@@ -21,5 +22,10 @@ export class PianoServiceImpl implements PianoService {
   async getSinglePiano(id: string): Promise<Piano | undefined> {
     await this.pianoRepository.connect();
     return this.pianoRepository.findById(id);
+  }
+
+  async savePiano(pianoToSave: Partial<Piano>): Promise<Piano> {
+    await this.pianoRepository.connect();
+    return this.pianoRepository.save(pianoToSave);
   }
 }

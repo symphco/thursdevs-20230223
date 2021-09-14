@@ -1,5 +1,6 @@
 import { RouteHandlerMethod } from 'fastify';
 import PianoService from '../services/PianoService';
+import Piano from '../models/Piano';
 
 type GetSinglePianoParams = {
   pianoId: string;
@@ -36,6 +37,33 @@ export class PianoControllerImpl {
       });
       return;
     }
+    reply.raw.statusMessage = 'Get Single Piano';
+    reply.send({
+      data: piano,
+    });
+  }
+
+  savePiano: RouteHandlerMethod = async (request, reply) => {
+    const pianoToSave = request.body as Partial<Piano>;
+    if (!pianoToSave) {
+      reply.raw.statusMessage = 'Invalid Request';
+      reply.status(400);
+      reply.send({
+        message: 'Malformed body.',
+      });
+      return;
+    }
+    const params = request.params as GetSinglePianoParams;
+    const existingPiano = await this.pianoService.getSinglePiano(params.pianoId);
+    if (!existingPiano) {
+      reply.raw.statusMessage = 'Piano Not Found';
+      reply.status(404);
+      reply.send({
+        message: 'No piano found with the specified ID.',
+      });
+      return;
+    }
+    const savedPiano = await this.pianoService.savePiano(pianoToSave);
     reply.raw.statusMessage = 'Get Single Piano';
     reply.send({
       data: piano,
