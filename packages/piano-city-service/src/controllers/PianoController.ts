@@ -66,7 +66,7 @@ export class PianoControllerImpl {
     const savedPiano = await this.pianoService.savePiano(pianoToSave);
     reply.raw.statusMessage = 'Get Single Piano';
     reply.send({
-      data: piano,
+      data: savedPiano,
     });
   }
 }

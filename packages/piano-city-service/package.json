@@ -21,7 +21,8 @@
   "name": "piano-city-service",
   "dependencies": {
     "fastify": "^3.21.0",
-    "fastify-cors": "^6.0.2"
+    "fastify-cors": "^6.0.2",
+    "fastify-static": "^4.2.3"
   },
   "devDependencies": {
     "@types/jest": "^27.0.1",
