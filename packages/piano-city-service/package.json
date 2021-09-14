@@ -20,6 +20,7 @@
   ],
   "name": "piano-city-service",
   "dependencies": {
+    "cross-env": "^7.0.3",
     "fastify": "^3.21.0",
     "fastify-cors": "^6.0.2",
     "fastify-static": "^4.2.3"
@@ -39,7 +40,8 @@
     "build": "pridepack build",
     "type-check": "pridepack check",
     "lint": "pridepack lint",
-    "test": "set NODE_ENV=test && pridepack test --passWithNoTests",
+    "test": "cross-env NODE_ENV=test && pridepack test --passWithNoTests",
+    "start": "node ./dist/cjs/index.js",
     "clean": "pridepack clean",
     "watch": "pridepack watch"
   }
