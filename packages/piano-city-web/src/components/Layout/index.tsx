@@ -2,8 +2,13 @@ import {FC} from 'react';
 import SearchForm from '../SearchForm';
 import styles from './index.module.css';
 
-const Layout: FC = ({
+type Props = {
+  query: string;
+}
+
+const Layout: FC<Props> = ({
   children,
+  query,
 }) => {
   return (
     <div>
@@ -18,7 +23,9 @@ const Layout: FC = ({
             className={styles.form}
             aria-label="Search Form"
           >
-            <SearchForm />
+            <SearchForm
+              defaultQuery={query}
+            />
           </form>
         </div>
       </header>
