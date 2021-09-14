@@ -13,3 +13,5 @@ const pianoController: PianoController = new PianoControllerImpl(pianoService);
 
 SERVER.get('/pianos', pianoController.getAllPianos);
 SERVER.get('/pianos/:pianoId', pianoController.getSinglePiano);
+SERVER.put('/pianos/:pianoId', pianoController.savePiano);
+SERVER.delete('/pianos/:pianoId', pianoController.deletePiano);

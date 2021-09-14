@@ -8,14 +8,14 @@ jest.mock('../utils/repository', () => {
 
     constructor() {
       this.items = [
-        // {
-        //   id: '0',
-        //   brand: 'Yamaha',
-        //   model: 'CFX',
-        //   price: '1000000.00',
-        //   imageUrl: '',
-        //   year: '2004',
-        // },
+        {
+          id: '0',
+          brand: 'Yamaha',
+          model: 'CFX',
+          price: '1000000.00',
+          imageUrl: '',
+          year: '2004',
+        },
       ];
     }
 
@@ -47,11 +47,10 @@ describe('PianoService', () => {
 
   beforeEach(() => {
     pianoRepository = new RepositoryImpl<Piano>('piano', (piano) => piano.id);
-    // console.log(RepositoryImpl);
     pianoService = new PianoServiceImpl(pianoRepository);
   });
 
-  xdescribe('getPianos', () => {
+  describe('getPianos', () => {
     it('should connect to the data source', async () => {
       const connect = jest.spyOn(pianoRepository, 'connect');
       await pianoService.getAllPianos();
@@ -63,21 +62,21 @@ describe('PianoService', () => {
       await pianoService.getAllPianos();
       expect(findAll).toBeCalled();
 
-      // const pianos = await pianoService.getAllPianos();
-      // expect(pianos).toEqual([
-      //   {
-      //     id: '0',
-      //     brand: 'Yamaha',
-      //     model: 'CFX',
-      //     price: '1000000.00',
-      //     imageUrl: '',
-      //     year: '2004',
-      //   },
-      // ]);
+      const pianos = await pianoService.getAllPianos();
+      expect(pianos).toEqual([
+        {
+          id: '0',
+          brand: 'Yamaha',
+          model: 'CFX',
+          price: '1000000.00',
+          imageUrl: '',
+          year: '2004',
+        },
+      ]);
     });
   });
 
-  xdescribe('getSinglePiano', () => {
+  describe('getSinglePiano', () => {
     it('should connect to the data source', async () => {
       const connect = jest.spyOn(pianoRepository, 'connect');
       await pianoService.getSinglePiano('0');
@@ -89,15 +88,15 @@ describe('PianoService', () => {
       await pianoService.getSinglePiano('0');
       expect(findById).toBeCalledWith('0');
 
-      // const piano = await pianoService.getSinglePiano('0');
-      // expect(piano).toEqual({
-      //   id: '0',
-      //   brand: 'Yamaha',
-      //   model: 'CFX',
-      //   price: '1000000.00',
-      //   imageUrl: '',
-      //   year: '2004',
-      // });
+      const piano = await pianoService.getSinglePiano('0');
+      expect(piano).toEqual({
+        id: '0',
+        brand: 'Yamaha',
+        model: 'CFX',
+        price: '1000000.00',
+        imageUrl: '',
+        year: '2004',
+      });
     });
   });
 
@@ -116,6 +115,20 @@ describe('PianoService', () => {
       expect(save).toBeCalledWith({
         id: '2',
       });
+    });
+  });
+
+  describe('deletePiano', () => {
+    it('should connect to the data source', async () => {
+      const connect = jest.spyOn(pianoRepository, 'connect');
+      await pianoService.deletePiano('0');
+      expect(connect).toBeCalled();
+    });
+
+    it('should remove a single item to the data source', async () => {
+      const del = jest.spyOn(pianoRepository, 'delete');
+      await pianoService.deletePiano('0');
+      expect(del).toBeCalledWith('0');
     });
   });
 });

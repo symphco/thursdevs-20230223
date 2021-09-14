@@ -5,6 +5,7 @@ export default interface PianoService {
   getAllPianos(): Promise<Piano[]>;
   getSinglePiano(id: string): Promise<Piano | undefined>;
   savePiano(pianoToSave: Partial<Piano>): Promise<Piano>;
+  deletePiano(id: string): Promise<void>;
 }
 
 export class PianoServiceImpl implements PianoService {
@@ -27,5 +28,10 @@ export class PianoServiceImpl implements PianoService {
   async savePiano(pianoToSave: Partial<Piano>): Promise<Piano> {
     await this.pianoRepository.connect();
     return this.pianoRepository.save(pianoToSave);
+  }
+
+  async deletePiano(id: string): Promise<void> {
+    await this.pianoRepository.connect();
+    return this.pianoRepository.delete(id);
   }
 }

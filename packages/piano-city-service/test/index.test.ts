@@ -77,7 +77,7 @@ describe('Piano API', () => {
     });
   });
 
-  fdescribe('PUT /pianos/:pianoId', () => {
+  describe('PUT /pianos/:pianoId', () => {
     it('should return 201 for a created resource', async () => {
       const response = await SERVER
         .inject()
@@ -87,7 +87,7 @@ describe('Piano API', () => {
           'Content-Type': 'application/json',
         })
         .payload({
-          id: '2',
+          id: '4',
           model: 'Model B',
           brand: 'Steinway & Sons',
           price: '1000000.00',
@@ -96,6 +96,14 @@ describe('Piano API', () => {
         });
 
       expect(response.statusCode).toBe(201);
+      expect(response.body).toBe(JSON.stringify({data: {
+        id: '2',
+        model: 'Model B',
+        brand: 'Steinway & Sons',
+        price: '1000000.00',
+        year: '1956',
+        imageUrl: '',
+      }}));
     });
 
     it('should return 200 for an updated resource', async () => {

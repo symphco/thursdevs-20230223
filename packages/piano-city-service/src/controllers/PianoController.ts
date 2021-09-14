@@ -9,6 +9,8 @@ type GetSinglePianoParams = {
 export default interface PianoController {
   getAllPianos: RouteHandlerMethod;
   getSinglePiano: RouteHandlerMethod;
+  savePiano: RouteHandlerMethod;
+  deletePiano: RouteHandlerMethod;
 }
 
 export class PianoControllerImpl {
@@ -55,7 +57,29 @@ export class PianoControllerImpl {
     }
     const params = request.params as GetSinglePianoParams;
     const existingPiano = await this.pianoService.getSinglePiano(params.pianoId);
+    const savedPiano = await this.pianoService.savePiano({
+      ...pianoToSave,
+      id: params.pianoId,
+    });
     if (!existingPiano) {
+      reply.raw.statusMessage = 'Create Piano';
+      reply.status(201);
+      reply.send({
+        data: savedPiano,
+      });
+      return;
+    }
+    reply.raw.statusMessage = 'Update Piano';
+    reply.status(200);
+    reply.send({
+      data: savedPiano,
+    });
+  }
+
+  deletePiano: RouteHandlerMethod = async (request, reply) => {
+    const params = request.params as GetSinglePianoParams;
+    const piano = await this.pianoService.getSinglePiano(params.pianoId);
+    if (!piano) {
       reply.raw.statusMessage = 'Piano Not Found';
       reply.status(404);
       reply.send({
@@ -63,10 +87,9 @@ export class PianoControllerImpl {
       });
       return;
     }
-    const savedPiano = await this.pianoService.savePiano(pianoToSave);
-    reply.raw.statusMessage = 'Get Single Piano';
-    reply.send({
-      data: savedPiano,
-    });
+    await this.pianoService.deletePiano(params.pianoId);
+    reply.raw.statusMessage = 'Delete Piano';
+    reply.status(204);
+    reply.send();
   }
 }
