@@ -40,7 +40,7 @@
     "build": "pridepack build",
     "type-check": "pridepack check",
     "lint": "pridepack lint",
-    "test": "cross-env NODE_ENV=test && pridepack test --passWithNoTests",
+    "test": "cross-env NODE_ENV=test pridepack test --passWithNoTests",
     "start": "node ./dist/cjs/index.js",
     "clean": "pridepack clean",
     "watch": "pridepack watch"
