@@ -1,0 +1,42 @@
+.base-input {
+  font: inherit;
+  border: 1px solid;
+  border-radius: 0.25rem;
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+}
+
+.small-input {
+  height: 2.5rem;
+  padding: 0 1rem;
+}
+
+.medium-input {
+  height: 3rem;
+  padding: 0 1rem;
+}
+
+.large-input {
+  height: 3.5rem;
+  padding: 0 1.5rem;
+}
+
+.wrapper {
+  display: inline-block;
+  position: relative;
+}
+
+.block-wrapper {
+  width: 100%;
+}
+
+.label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0.125rem 0.25rem;
+  font-size: 0.75rem;
+  font-weight: bolder;
+  line-height: 1;
+}

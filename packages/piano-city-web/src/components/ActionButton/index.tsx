@@ -31,6 +31,7 @@ const ActionButton = forwardRef<HTMLButtonElement, Props>(({
   block,
   type: buttonType = ButtonType.BUTTON,
   size = ButtonSize.MEDIUM,
+  className,
   ...etcProps
 }, ref) => {
   return (
@@ -43,6 +44,7 @@ const ActionButton = forwardRef<HTMLButtonElement, Props>(({
         block && styles['block-button'],
         variant && styles[`${variant}-button`],
         size && styles[`${size}-button`],
+        className,
       ]
         .filter(c => typeof c === 'string')
         .join(' ')

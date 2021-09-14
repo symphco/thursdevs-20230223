@@ -3,6 +3,12 @@
   border: 1px solid;
   border-radius: 0.25rem;
   box-sizing: border-box;
+  cursor: pointer;
+}
+
+.base-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .base-children {

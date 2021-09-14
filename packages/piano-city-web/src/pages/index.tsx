@@ -1,17 +1,12 @@
 import type {NextPage} from 'next';
-import ActionButton, {ButtonSize, ButtonVariant} from '../components/ActionButton';
+import Layout from '../components/Layout';
 
 const Home: NextPage = () => {
   return (
-    <div>
-      <ActionButton
-        size={ButtonSize.LARGE}
-        variant={ButtonVariant.PRIMARY}
-      >
-        Button
-      </ActionButton>
-    </div>
-  )
+    <Layout>
+      Content
+    </Layout>
+  );
 }
 
-export default Home
+export default Home;

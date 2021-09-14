@@ -1,0 +1,25 @@
+.header {
+  background-color: currentColor;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-container {
+  max-width: 1080px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.header-container {
+  max-width: 720px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.form {
+  width: 100%;
+}
+

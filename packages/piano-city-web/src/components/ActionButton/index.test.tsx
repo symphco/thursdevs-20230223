@@ -5,7 +5,7 @@ describe('ActionButton', () => {
   it('should render a button', () => {
     render(<ActionButton />);
     const button = screen.getByRole('button');
-    expect(button).toBeDefined();
+    expect(button).toBeInTheDocument();
   });
 
   it('should render a block button', () => {
@@ -31,7 +31,7 @@ describe('ActionButton', () => {
     ${ButtonSize.SMALL}  | ${'small-button'}
     ${ButtonSize.MEDIUM} | ${'medium-button'}
     ${ButtonSize.LARGE}  | ${'large-button'}
-  `('should render a $size button', ({ size, className}) => {
+  `('should render a $size button', ({ size, className }) => {
     render(<ActionButton size={size} />);
     const button = screen.getByRole('button');
     expect(button).toHaveClass(className);
