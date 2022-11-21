@@ -21,7 +21,7 @@
   "name": "@piano-city/service",
   "dependencies": {
     "cross-env": "^7.0.3",
-    "fastify": "^3.21.0",
+    "fastify": "^3.29.4",
     "fastify-cors": "^6.0.2",
     "fastify-static": "^4.2.3"
   },
