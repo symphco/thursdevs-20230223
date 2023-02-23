@@ -7,4 +7,10 @@ describe('Layout', () => {
     const searchForm = screen.getByLabelText('Search Form');
     expect(searchForm.tagName).toBe('FORM');
   });
+
+  it('should render a search form with default query', () => {
+    render(<Layout query="foo" />);
+    const searchForm = screen.getByLabelText('Search Form');
+    expect(searchForm.tagName).toBe('FORM');
+  });
 });

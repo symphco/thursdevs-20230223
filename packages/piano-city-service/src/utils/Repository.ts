@@ -4,6 +4,7 @@ export default interface Repository<T, I = string> {
   connect(): Promise<void>;
   findAll(): Promise<T[]>;
   findById(id: I): Promise<T | undefined>;
+  findMultiple(q: string, attributes: string[]): Promise<T[]>;
   save(itemToSave: Partial<T>): Promise<T>;
   delete(id: I): Promise<void>;
 }
@@ -58,6 +59,19 @@ export class RepositoryImpl<T, I = string> implements Repository<T, I> {
 
   async findById(id: I): Promise<T | undefined> {
     return Promise.resolve(this.items.find((item) => this.idRetriever(item) === id));
+  }
+
+  async findMultiple(q: string, attributes: string[]): Promise<T[]> {
+    return Promise.resolve(
+      this.items.filter((item) => attributes.reduce(
+        (e, attr) => e
+          || (item as unknown as Record<string, string>)[attr]
+            .toString()
+            .toLowerCase()
+            .includes(q.toLowerCase().trim()),
+        false as boolean,
+      )),
+    );
   }
 
   async save(itemToSave: Partial<T>): Promise<T> {

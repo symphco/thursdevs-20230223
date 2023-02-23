@@ -4,7 +4,7 @@ import Repository, { RepositoryImpl } from '../utils/Repository';
 
 jest.mock('../utils/repository', () => {
   class MockRepository implements Repository<Piano> {
-    private items: Piano[];
+    private readonly items: Piano[];
 
     constructor() {
       this.items = [
@@ -22,6 +22,10 @@ jest.mock('../utils/repository', () => {
     connect = () => Promise.resolve()
 
     findAll(): Promise<Piano[]> {
+      return Promise.resolve<Piano[]>(this.items);
+    }
+
+    findMultiple(): Promise<Piano[]> {
       return Promise.resolve<Piano[]>(this.items);
     }
 
@@ -61,6 +65,32 @@ describe('PianoService', () => {
       const findAll = jest.spyOn(pianoRepository, 'findAll');
       await pianoService.getAllPianos();
       expect(findAll).toBeCalled();
+
+      const pianos = await pianoService.getAllPianos();
+      expect(pianos).toEqual([
+        {
+          id: '0',
+          brand: 'Yamaha',
+          model: 'CFX',
+          price: '1000000.00',
+          imageUrl: '',
+          year: '2004',
+        },
+      ]);
+    });
+  });
+
+  describe('searchPianos', () => {
+    it('should connect to the data source', async () => {
+      const connect = jest.spyOn(pianoRepository, 'connect');
+      await pianoService.getAllPianos();
+      expect(connect).toBeCalled();
+    });
+
+    it('should retrieve filtered pianos from the data source', async () => {
+      const findMultiple = jest.spyOn(pianoRepository, 'findMultiple');
+      await pianoService.searchPianos('yamaha');
+      expect(findMultiple).toBeCalled();
 
       const pianos = await pianoService.getAllPianos();
       expect(pianos).toEqual([

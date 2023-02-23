@@ -1,14 +1,16 @@
-import {FC} from 'react';
+import {FC, FormEventHandler} from 'react';
 import SearchForm from '../SearchForm';
 import styles from './index.module.css';
 
 type Props = {
-  query: string;
+  query?: string;
+  onSubmit?: FormEventHandler<HTMLFormElement>;
 }
 
 const Layout: FC<Props> = ({
   children,
-  query,
+  query = '',
+  onSubmit,
 }) => {
   return (
     <div>
@@ -22,6 +24,7 @@ const Layout: FC<Props> = ({
             method="get"
             className={styles.form}
             aria-label="Search Form"
+            onSubmit={onSubmit}
           >
             <SearchForm
               defaultQuery={query}

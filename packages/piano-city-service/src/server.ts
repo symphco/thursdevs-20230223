@@ -4,7 +4,7 @@ import fastifyStatic from 'fastify-static';
 import * as path from 'path';
 
 const SERVER = fastify({
-  logger: true,
+  logger: process.env.NODE_ENV !== 'test',
 });
 
 SERVER.register(fastifyStatic, {

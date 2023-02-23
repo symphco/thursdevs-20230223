@@ -3,6 +3,7 @@ import Piano from '../models/Piano';
 
 export default interface PianoService {
   getAllPianos(): Promise<Piano[]>;
+  searchPianos(q: string): Promise<Piano[]>;
   getSinglePiano(id: string): Promise<Piano | undefined>;
   savePiano(pianoToSave: Partial<Piano>): Promise<Piano>;
   deletePiano(id: string): Promise<void>;
@@ -18,6 +19,11 @@ export class PianoServiceImpl implements PianoService {
   async getAllPianos(): Promise<Piano[]> {
     await this.pianoRepository.connect();
     return this.pianoRepository.findAll();
+  }
+
+  async searchPianos(q: string): Promise<Piano[]> {
+    await this.pianoRepository.connect();
+    return this.pianoRepository.findMultiple(q, ['brand', 'model']);
   }
 
   async getSinglePiano(id: string): Promise<Piano | undefined> {

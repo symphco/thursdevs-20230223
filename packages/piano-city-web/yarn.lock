@@ -728,6 +728,11 @@
     "@babel/runtime" "^7.12.5"
     "@testing-library/dom" "^8.0.0"
 
+"@theoryofnekomata/formxtra@^0.2.3":
+  version "0.2.3"
+  resolved "https://js.pack.modal.sh/@theoryofnekomata%2fformxtra/-/formxtra-0.2.3.tgz#5ea5ddfc2ae7246ffeb4325030ead04b557d05d1"
+  integrity sha512-TZWMG+fV3pbUz9wPgt29DlaIppa8mmGIBA8fH8Vk+idvcNVJLwJ42nQ/ZSMS/si+EZ49LaHLf0XHZS9qCHrwig==
+
 "@tootallnate/once@1":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-1.1.2.tgz#ccb91445360179a04e7fe6aff78c00ffc1eeaf82"

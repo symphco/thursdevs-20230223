@@ -5,13 +5,13 @@ import PianoService, { PianoServiceImpl } from './services/PianoService';
 import Piano from './models/Piano';
 
 const pianoRepository: Repository<Piano> = new RepositoryImpl<Piano>(
-  process.env.NODE_ENV === 'test' ? 'piano.test' : 'piano',
+  `piano.${String(process.env.NODE_ENV)}`,
   (item) => item.id,
 );
 const pianoService: PianoService = new PianoServiceImpl(pianoRepository);
 const pianoController: PianoController = new PianoControllerImpl(pianoService);
 
-SERVER.get('/pianos', pianoController.getAllPianos);
+SERVER.get('/pianos', pianoController.getMultiplePianos);
 SERVER.get('/pianos/:pianoId', pianoController.getSinglePiano);
 SERVER.put('/pianos/:pianoId', pianoController.savePiano);
 SERVER.delete('/pianos/:pianoId', pianoController.deletePiano);

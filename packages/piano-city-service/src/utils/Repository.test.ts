@@ -10,7 +10,7 @@ jest.mock('fs', () => ({
       // noop
     },
     readFile() {
-      return Promise.resolve(Buffer.from('[{"id":"0"}]'));
+      return Promise.resolve(Buffer.from('[{"id":"0"},{"id":"1"},{"id":"111"},{"id":"11111"}]'));
     },
   },
 }));
@@ -51,6 +51,16 @@ describe('Repository', () => {
 
       expect(readFile).toBeCalledWith('.database/foo.json');
     });
+
+    it('should attempt to reset the items when the read fails', async () => {
+      const readFile = jest.spyOn(fs.promises, 'readFile');
+      readFile.mockImplementationOnce(() => { throw new Error(); });
+
+      const writeFile = jest.spyOn(fs.promises, 'writeFile');
+      await repository.connect();
+
+      expect(writeFile).toBeCalledWith('.database/foo.json', '[]');
+    });
   });
 
   describe('findAll', () => {
@@ -62,6 +72,24 @@ describe('Repository', () => {
       const items = await repository.findAll();
       expect(items).toEqual([
         { id: '0' },
+        { id: '1' },
+        { id: '111' },
+        { id: '11111' },
+      ]);
+    });
+  });
+
+  describe('findMultiple', () => {
+    beforeEach(async () => {
+      await repository.connect();
+    });
+
+    it('should return items from the data source', async () => {
+      const items = await repository.findMultiple('1', ['id']);
+      expect(items).toEqual([
+        { id: '1' },
+        { id: '111' },
+        { id: '11111' },
       ]);
     });
   });
@@ -107,6 +135,10 @@ describe('Repository', () => {
       const checkItem = await repository.findById('1');
       expect(checkItem).toEqual({ id: '1' });
     });
+
+    it('should throw when an invalid ID is given', async () => {
+      await expect(() => repository.save({})).rejects.toThrow();
+    });
   });
 
   describe('delete', () => {
@@ -116,11 +148,17 @@ describe('Repository', () => {
 
     it('should save the item to the data source', async () => {
       const writeFile = jest.spyOn(fs.promises, 'writeFile');
-      await repository.save({
-        id: '0',
-      });
+      await repository.delete('0');
 
       expect(writeFile).toBeCalled();
+    });
+
+    it('should do nothing when no matching item was found from the data source', async () => {
+      const writeFile = jest.spyOn(fs.promises, 'writeFile');
+      writeFile.mockReset();
+      await repository.delete('42069');
+
+      expect(writeFile).not.toBeCalled();
     });
   });
 });

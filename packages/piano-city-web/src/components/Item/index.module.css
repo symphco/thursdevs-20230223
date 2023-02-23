@@ -1,0 +1,43 @@
+.base {
+  border: 1px solid #ddd;
+  overflow: hidden;
+  border-radius: 0.5rem;
+}
+
+.header {
+  height: 300px;
+}
+
+.header > img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.details {
+  padding: 1rem;
+  margin: 0;
+}
+
+.details > div > dt {
+  position: absolute;
+  left: -999999px;
+}
+
+.details > div > dd {
+  margin: 0;
+}
+
+.brand {
+  font-weight: bold;
+}
+
+.model {
+  font-weight: bold;
+  font-size: 150%;
+}
+
+.price {
+  text-align: right;
+}

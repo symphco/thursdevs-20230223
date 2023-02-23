@@ -7,25 +7,29 @@ type GetSinglePianoParams = {
 }
 
 export default interface PianoController {
-  getAllPianos: RouteHandlerMethod;
+  getMultiplePianos: RouteHandlerMethod;
   getSinglePiano: RouteHandlerMethod;
   savePiano: RouteHandlerMethod;
   deletePiano: RouteHandlerMethod;
 }
 
-export class PianoControllerImpl {
+export class PianoControllerImpl implements PianoController {
   private readonly pianoService: PianoService;
 
   constructor(pianoService: PianoService) {
     this.pianoService = pianoService;
   }
 
-  getAllPianos: RouteHandlerMethod = async (_, reply) => {
+  getMultiplePianos: RouteHandlerMethod = async (request, reply) => {
+    const query = request.query as { q?: string }
+    if (query.q) {
+      const filteredPianos = await this.pianoService.searchPianos(query.q);
+      reply.raw.statusMessage = 'Get Multiple Pianos';
+      reply.send(filteredPianos);
+    }
     const pianos = await this.pianoService.getAllPianos();
-    reply.raw.statusMessage = 'Get All Pianos';
-    reply.send({
-      data: pianos,
-    });
+    reply.raw.statusMessage = 'Get Multiple Pianos';
+    reply.send(pianos);
   };
 
   getSinglePiano: RouteHandlerMethod = async (request, reply) => {
@@ -40,14 +44,12 @@ export class PianoControllerImpl {
       return;
     }
     reply.raw.statusMessage = 'Get Single Piano';
-    reply.send({
-      data: piano,
-    });
+    reply.send(piano);
   }
 
   savePiano: RouteHandlerMethod = async (request, reply) => {
     const pianoToSave = request.body as Partial<Piano>;
-    if (!pianoToSave) {
+    if (!(pianoToSave && 'brand' in pianoToSave && 'model' in pianoToSave && 'year' in pianoToSave)) {
       reply.raw.statusMessage = 'Invalid Request';
       reply.status(400);
       reply.send({
@@ -64,16 +66,12 @@ export class PianoControllerImpl {
     if (!existingPiano) {
       reply.raw.statusMessage = 'Create Piano';
       reply.status(201);
-      reply.send({
-        data: savedPiano,
-      });
+      reply.send(savedPiano);
       return;
     }
     reply.raw.statusMessage = 'Update Piano';
     reply.status(200);
-    reply.send({
-      data: savedPiano,
-    });
+    reply.send(savedPiano);
   }
 
   deletePiano: RouteHandlerMethod = async (request, reply) => {

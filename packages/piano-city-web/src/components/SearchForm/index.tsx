@@ -4,11 +4,11 @@ import ActionButton, {ButtonType} from '../ActionButton';
 import styles from './index.module.css';
 
 type Props = {
-  defaultQuery: string;
+  defaultQuery?: string;
 }
 
 const SearchForm: FC<Props> = ({
-  defaultQuery,
+  defaultQuery = '',
 }) => {
   return (
     <div

@@ -47,9 +47,18 @@ describe('Piano API', () => {
   });
 
   describe('GET /pianos', () => {
-    it('should return 200', async () => {
+    it('should return 200 on fetching all', async () => {
       const response = await SERVER.inject()
         .get('/pianos')
+        .headers({
+          Accept: 'application/json',
+        });
+      expect(response.statusCode).toBe(200);
+    });
+
+    it('should return 200 on query', async () => {
+      const response = await SERVER.inject()
+        .get('/pianos?q=foo')
         .headers({
           Accept: 'application/json',
         });
@@ -96,14 +105,14 @@ describe('Piano API', () => {
         });
 
       expect(response.statusCode).toBe(201);
-      expect(response.body).toBe(JSON.stringify({data: {
+      expect(response.body).toBe(JSON.stringify({
         id: '2',
         model: 'Model B',
         brand: 'Steinway & Sons',
         price: '1000000.00',
         year: '1956',
         imageUrl: '',
-      }}));
+      }));
     });
 
     it('should return 200 for an updated resource', async () => {
@@ -139,6 +148,19 @@ describe('Piano API', () => {
           imageUrl: '',
         });
       expect(response.statusCode).toBe(200);
+    });
+
+    it('should return 400 for an invalid request', async () => {
+      const response = await SERVER
+        .inject()
+        .put('/pianos/2')
+        .headers({
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        })
+        .payload({});
+
+      expect(response.statusCode).toBe(400);
     });
   });
 
