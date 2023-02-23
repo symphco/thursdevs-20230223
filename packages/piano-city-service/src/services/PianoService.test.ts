@@ -2,7 +2,7 @@ import PianoService, { PianoServiceImpl } from './PianoService';
 import Piano from '../models/Piano';
 import Repository, { RepositoryImpl } from '../utils/Repository';
 
-jest.mock('../utils/repository', () => {
+jest.mock('../utils/Repository', () => {
   class MockRepository implements Repository<Piano> {
     private readonly items: Piano[];
 

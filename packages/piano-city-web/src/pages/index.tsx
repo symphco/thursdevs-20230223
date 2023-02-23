@@ -20,6 +20,7 @@ const Home: NextPage<Props> = ({
 }) => {
   const router = useRouter();
   const [data, setData] = useState<Piano[]>();
+
   useEffect(() => {
     const handleRouteChange = async (url: string) => {
       let responseData;
@@ -36,6 +37,16 @@ const Home: NextPage<Props> = ({
       router.events.off('routeChangeStart', handleRouteChange);
     };
   }, [router.events]);
+
+  useEffect(() => {
+    const loadData = async (query) => {
+      const response = await fetch(`http://localhost:8080/pianos?q=${query}`);
+      const responseData = await response.json();
+      setData(responseData);
+    }
+
+    void loadData(query);
+  }, [query]);
 
   const handleFormSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
