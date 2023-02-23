@@ -38,4 +38,4 @@ Install dependencies for both packages. Run the test scripts to see if everythin
 There is a file called [`REQUIREMENTS.md`](./REQUIREMENTS.md) which lists user stories currently done for the project. Would you be able to
 finish the project satisfying all of those requirements?
 
-Clone this repository and get to work! :)
+Fork this repository and get to work! :)
