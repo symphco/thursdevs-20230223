@@ -2,6 +2,12 @@
 
 This is a sample app demonstrating methods on how to test frontend and backend projects.
 
+## Preview
+
+![Desktop preview](./docs/assets/preview-desktop.png)
+![Tablet preview](./docs/assets/preview-tablet.png)
+![Phone preview](./docs/assets/preview-phone.png)
+
 ## Setup
 
 > **Note:** The instructions assume we have set the project variables to their defaults:
